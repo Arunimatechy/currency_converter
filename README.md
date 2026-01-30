@@ -2,6 +2,6 @@ X Compass is a modern currency converter built with React.js that allows users t
 
 To enhance usability, the app includes SVG-based country flags and persists the last conversion using localStorage. FX Compass is deployed on Vercel with GitHub CI/CD integration, enabling seamless and automatic deployments. The project follows frontend best practices, including error handling, loading states, and input validation, making it suitable for real-world usage and portfolio demonstration.
 
-🔗 Live Demo: https://your-vercel-link.vercel.app
+🔗 Live Demo: https://currency-converter-chi-ashen.vercel.app/
 
 
