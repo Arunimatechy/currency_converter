@@ -29,7 +29,22 @@ Minimal, intuitive interface for smooth currency conversions.
 Flags and country codes provide clear visual context.
 
 Mobile-friendly and fully responsive design
+🌐 Deployment
 
-🔗 Live Demo: https://currency-converter-chi-ashen.vercel.app/
+The project is fully deployed on Vercel with GitHub CI/CD integration, automatically redeploying on every code update.
+
+Live Demo: https://currency-converter-chi-ashen.vercel.app/
+📂 Folder Structure
+fx-compass/
+├── public/
+│   └── index.html
+├── src/
+│   ├── components/       
+│   ├── pages/            
+│   ├── utils/            
+│   └── index.js
+├── package.json
+└── README.md
+
 
 
