@@ -1,6 +1,34 @@
-X Compass is a modern currency converter built with React.js that allows users to convert between multiple global currencies using real-time exchange rates from a public REST API. The application features auto-conversion on currency and amount changes, a currency swap option with instant recalculation, and a clean, responsive UI built using Tailwind CSS.
+🚀 Features
 
-To enhance usability, the app includes SVG-based country flags and persists the last conversion using localStorage. FX Compass is deployed on Vercel with GitHub CI/CD integration, enabling seamless and automatic deployments. The project follows frontend best practices, including error handling, loading states, and input validation, making it suitable for real-world usage and portfolio demonstration.
+Real-Time Conversion: Instantly converts amounts between selected currencies using live exchange rates from a public REST API.
+
+Auto-Update: Conversion updates automatically on currency or amount changes—no need for extra clicks.
+
+Currency Swap: Quickly swap currencies with automatic recalculation for faster workflow.
+
+Persistent Data: Stores the last conversion in localStorage, ensuring your data persists across sessions.
+
+Responsive UI: Clean and modern design with Tailwind CSS and SVG country flags for enhanced clarity.
+
+Error Handling & Validation: Input validation, loading states, and error handling ensure reliable performance.
+
+🛠 Technologies
+
+Frontend: React.js, Tailwind CSS
+
+API: Public Currency Exchange REST API
+
+State Management: React useState and useEffect hooks
+
+Deployment & CI/CD: Vercel, GitHub Actions for automatic redeployment
+
+🎨 UI/UX Highlights
+
+Minimal, intuitive interface for smooth currency conversions.
+
+Flags and country codes provide clear visual context.
+
+Mobile-friendly and fully responsive design
 
 🔗 Live Demo: https://currency-converter-chi-ashen.vercel.app/
 
