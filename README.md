@@ -1,50 +1,30 @@
-🚀 Features
+# 💱 Real-Time Currency Converter
 
-Real-Time Conversion: Instantly converts amounts between selected currencies using live exchange rates from a public REST API.
+A real-time currency converter built with React.js that supports automatic conversion, currency swapping, and persistent state storage.
 
-Auto-Update: Conversion updates automatically on currency or amount changes—no need for extra clicks.
+## 🚀 Features
+- Real-time currency conversion
+- Currency swap functionality
+- SVG country flags
+- Persistent state using localStorage
+- Clean and responsive UI
+- Deployed on Vercel
 
-Currency Swap: Quickly swap currencies with automatic recalculation for faster workflow.
+## 🛠 Tech Stack
+- React.js
+- Axios
+- Tailwind CSS
+- REST API
+- Vercel
 
-Persistent Data: Stores the last conversion in localStorage, ensuring your data persists across sessions.
+## 📌 What I Learned
+- Handling real-time API data
+- Working with external APIs using Axios
+- Improving UX with clean UI design
+- Deploying React applications on Vercel
 
-Responsive UI: Clean and modern design with Tailwind CSS and SVG country flags for enhanced clarity.
+## 🌐 Live Demo
+https://currency-converter-chi-ashen.vercel.app/
 
-Error Handling & Validation: Input validation, loading states, and error handling ensure reliable performance.
-
-🛠 Technologies
-
-Frontend: React.js, Tailwind CSS
-
-API: Public Currency Exchange REST API
-
-State Management: React useState and useEffect hooks
-
-Deployment & CI/CD: Vercel, GitHub Actions for automatic redeployment
-
-🎨 UI/UX Highlights
-
-Minimal, intuitive interface for smooth currency conversions.
-
-Flags and country codes provide clear visual context.
-
-Mobile-friendly and fully responsive design
-🌐 Deployment
-
-The project is fully deployed on Vercel with GitHub CI/CD integration, automatically redeploying on every code update.
-
-Live Demo: https://currency-converter-chi-ashen.vercel.app/
-📂 Folder Structure
-fx-compass/
-├── public/
-│   └── index.html
-├── src/
-│   ├── components/       
-│   ├── pages/            
-│   ├── utils/            
-│   └── index.js
-├── package.json
-└── README.md
-
-
-
+## 📂 GitHub Repository
+https://github.com/Arunimatechy/currency_converter
