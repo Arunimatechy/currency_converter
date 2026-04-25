@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 
-// Currency → Country code (for SVG flags)
 const currencyToCountry = {
   USD: "us",
   INR: "in",
@@ -15,7 +14,6 @@ const currencyToCountry = {
   NZD: "nz",
 }
 
-// Flag SVG URL
 const getFlagUrl = (currency) => {
   const code = currencyToCountry[currency]
   return code
@@ -28,152 +26,168 @@ const App = () => {
   const [amount, setAmount] = useState(1)
   const [from, setFrom] = useState("USD")
   const [to, setTo] = useState("INR")
-  const [result, setResult] = useState(null)
+  const [result, setResult] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
-  // Fetch currency list
+  // Load currencies
   const getCurrencies = async () => {
     try {
-      const res = await axios.get("https://api.frankfurter.app/currencies")
-      setCurrencyList(Object.keys(res.data))
-    } catch {
+      const res = await axios.get("https://open.er-api.com/v6/latest/USD")
+      setCurrencyList(Object.keys(res.data.rates))
+    } catch (err) {
       setError("Failed to load currencies")
     }
   }
 
-  // Convert currency
-  const convertCurrency = async (f = from, t = to, amt = amount) => {
-    if (amt <= 0 || f === t) return
+  // Convert
+  const convertCurrency = async (
+    f = from,
+    t = to,
+    amt = amount
+  ) => {
+    if (!amt || amt <= 0) return
+
+    if (f === t) {
+      setResult(amt)
+      return
+    }
 
     try {
       setLoading(true)
       setError("")
+
       const res = await axios.get(
-        `https://api.frankfurter.app/latest?amount=${amt}&from=${f}&to=${t}`
+        `https://open.er-api.com/v6/latest/${f}`
       )
-      setResult(res.data.rates[t].toFixed(2))
-    } catch {
-      setError("Conversion failed")
-      setResult(null)
+
+      const rate = res.data.rates[t]
+      const converted = (amt * rate).toFixed(2)
+
+      setResult(converted)
+    } catch (err) {
+      setError("Conversion Failed")
+      setResult("")
     } finally {
       setLoading(false)
     }
   }
 
-  // Swap + auto convert
+  // Swap
   const handleSwap = () => {
+    const temp = from
     setFrom(to)
-    setTo(from)
-    convertCurrency(to, from, amount)
+    setTo(temp)
   }
 
-  // Initial load
   useEffect(() => {
     getCurrencies()
-
-    const saved = JSON.parse(localStorage.getItem("lastConversion"))
-    if (saved) {
-      setAmount(saved.amount)
-      setFrom(saved.from)
-      setTo(saved.to)
-      setResult(saved.result)
-    }
   }, [])
 
-  // 🚀 Auto convert on change (amount / from / to)
   useEffect(() => {
-    convertCurrency()
-  }, [amount, from, to])
-
-  // Save last conversion
-  useEffect(() => {
-    if (result) {
-      localStorage.setItem(
-        "lastConversion",
-        JSON.stringify({ amount, from, to, result })
-      )
+    if (currencyList.length > 0) {
+      convertCurrency()
     }
-  }, [result, amount, from, to])
+  }, [amount, from, to, currencyList])
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-gray-100">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md space-y-5">
-        <h1 className="text-3xl font-bold text-blue-700 text-center">
-          Currency Converter
+    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex justify-center items-center p-5">
+      <div className="bg-white shadow-2xl rounded-3xl p-8 w-full max-w-md">
+
+        <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">
+          💱 Currency Converter
         </h1>
 
+        {/* Amount */}
         <input
           type="number"
-          min="0"
-          step="any"
+          min="1"
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className="w-full border p-3 rounded-lg"
-          placeholder="Enter amount"
+          onChange={(e) =>
+            setAmount(Number(e.target.value))
+          }
+          className="w-full border p-3 rounded-xl mb-4"
+          placeholder="Enter Amount"
         />
 
         {/* From */}
-        <div className="flex items-center gap-3 border p-3 rounded-lg">
+        <div className="flex items-center gap-3 border p-3 rounded-xl mb-4">
           <img
             src={getFlagUrl(from)}
             alt={from}
-            className="w-8 h-5 rounded-sm"
+            className="w-8 h-5"
           />
+
           <select
             value={from}
             onChange={(e) => setFrom(e.target.value)}
             className="flex-1 outline-none"
           >
-            {currencyList.map((curr) => (
-              <option key={curr} value={curr}>
-                {curr}
+            {currencyList.map((cur) => (
+              <option key={cur} value={cur}>
+                {cur}
               </option>
             ))}
           </select>
         </div>
 
         {/* To */}
-        <div className="flex items-center gap-3 border p-3 rounded-lg">
+        <div className="flex items-center gap-3 border p-3 rounded-xl mb-4">
           <img
             src={getFlagUrl(to)}
             alt={to}
-            className="w-8 h-5 rounded-sm"
+            className="w-8 h-5"
           />
+
           <select
             value={to}
             onChange={(e) => setTo(e.target.value)}
             className="flex-1 outline-none"
           >
-            {currencyList.map((curr) => (
-              <option key={curr} value={curr}>
-                {curr}
+            {currencyList.map((cur) => (
+              <option key={cur} value={cur}>
+                {cur}
               </option>
             ))}
           </select>
         </div>
 
-        {/* Swap */}
-        <button
-          onClick={handleSwap}
-          className="w-full bg-gray-300 py-2 rounded-lg font-semibold"
-        >
-          🔁 Swap
-        </button>
+        {/* Buttons */}
+        <div className="flex gap-3 mb-5">
+          <button
+            onClick={handleSwap}
+            className="w-1/2 bg-gray-700 text-white py-3 rounded-xl hover:bg-black"
+          >
+            🔁 Swap
+          </button>
 
-        {/* Result */}
+          <button
+            onClick={convertCurrency}
+            className="w-1/2 bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700"
+          >
+            Convert
+          </button>
+        </div>
+
+        {/* Loading */}
         {loading && (
-          <p className="text-center text-gray-500">Converting...</p>
-        )}
-
-        {result && !error && (
-          <p className="text-center text-green-600 font-bold text-lg">
-            {amount} {from} = {result} {to}
+          <p className="text-center text-gray-500">
+            Converting...
           </p>
         )}
 
+        {/* Result */}
+        {result && !loading && !error && (
+          <div className="bg-green-100 p-4 rounded-xl text-center">
+            <p className="text-xl font-bold text-green-700">
+              {amount} {from} = {result} {to}
+            </p>
+          </div>
+        )}
+
+        {/* Error */}
         {error && (
-          <p className="text-center text-red-500 font-semibold">
+          <p className="text-center text-red-500 font-bold">
             {error}
           </p>
         )}
