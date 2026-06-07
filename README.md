@@ -177,15 +177,29 @@ This project helped me learn:
 
 ## 📸 Screenshots
 
-### Home Page
-_Add screenshot here_
+### 🏠 Home Page
 
-### Currency Conversion
-_Add screenshot here_
+![Home Page](screenshot/home-page.png)
 
-### Mobile View
-_Add screenshot here_
+Clean and intuitive interface for entering amounts and selecting currencies.
 
+---
+
+### 💱 Currency Conversion
+
+![Currency Conversion](screenshot/currency-conversion.png)
+
+Real-time currency conversion with live exchange rates and instant results.
+
+---
+
+### 📱 Mobile View
+
+![Mobile View](screenshot/mobile-view.png)
+
+Responsive design optimized for smartphones and tablets.
+
+---
 ---
 
 ## 🚀 Future Improvements
